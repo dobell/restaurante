@@ -21,25 +21,28 @@ $app->group('/api', function () use ($app) {
 	// platos
 	 $app->get('/platos', 'getPlatos');
 	 $app->get('/plato/{id}', 'getPlato');
-	 $app->post('/create', 'addPlato');
-	 $app->put('/update/{id}', 'updatePlato');
-	 $app->delete('/delete/{id}', 'deletePlato');
+	 $app->post('/createPlato', 'addPlato');
+	 $app->put('/updatePlato/{id}', 'updatePlato');
+	 $app->delete('/deletePlato/{id}', 'deletePlato');
 
 	// ingredientes
-	 $app->get('/platos', 'getPlatos');
-	 $app->get('/plato/{id}', 'getPlato');
-	 $app->post('/create', 'addPlato');
-	 $app->put('/update/{id}', 'updatePlato');
-	 $app->delete('/delete/{id}', 'deletePlato');
+	 $app->get('/ingredientes', 'getIngredientes');
+	 $app->get('/ingrediente/{id}', 'getIngrediente');
+	 $app->post('/createIngrediente', 'addIngrediente');
+	 $app->put('/updateIngrediente/{id}', 'updateIngrediente');
+	 $app->delete('/deleteIngrediente/{id}', 'deleteIngrediente');
 
 	// alergenos
-	 $app->get('/platos', 'getPlatos');
-	 $app->get('/plato/{id}', 'getPlato');
-	 $app->post('/create', 'addPlato');
-	 $app->put('/update/{id}', 'updatePlato');
-	 $app->delete('/delete/{id}', 'deletePlato');
+	 $app->get('/alergenos', 'getAlergenos');
+	 $app->get('/alergeno/{id}', 'getAlergeno');
+	 $app->post('/createAlergeno', 'addAlergeno');
+	 $app->put('/updateAlergeno/{id}', 'updateAlergeno');
+	 $app->delete('/deleteAlergeno/{id}', 'deleteAlergeno');
 
 	// alergenos-plato
 	 $app->get('/plato/{id}/alergenos', 'getAlergenosPlato');
+
+  // platos en los que está un alergeno
+  $app->get('/platos/alergeno/{id}', 'getPlatosAlergeno');
  });
 });
