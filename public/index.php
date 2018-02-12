@@ -53,6 +53,41 @@ function getPlatos($response) {
     }
 }
 
+/* añade un plato */
+function addPlato($request) {
+    $plato = json_decode($request->getBody());
+	
+    $sql = "INSERT INTO rt_platos (decripcion) VALUES (:nombre)";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("nombre", $plato->nombre);
+        $stmt->execute();
+        $emp->id = $db->lastInsertId();
+        $db = null;
+        echo json_encode($emp);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+/* borra un plato */
+function deletePlato($request) {
+	$id = $request->getAttribute('id');
+    $sql = "DELETE FROM rt_platos WHERE id=:id";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("id", $id);
+        $stmt->execute();
+        $db = null;
+		echo '{"error":{"text":"correcto! plato borrado"}}';
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+
 /**/
 function getAlergenosPlato($request) {
     $emp = json_decode($request->getBody());
