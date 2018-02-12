@@ -33,7 +33,7 @@ function getConnection() {
     $dbhost="127.0.0.1";
     $dbuser="root";
     $dbpass="";
-    $dbname="elparking";
+    $dbname="test";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
@@ -46,7 +46,7 @@ function getPlatos($response) {
         $stmt = getConnection()->query($sql);
         $wines = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-		
+
         return json_encode($wines);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -56,12 +56,45 @@ function getPlatos($response) {
 /* añade un plato */
 function addPlato($request) {
     $plato = json_decode($request->getBody());
-	
-    $sql = "INSERT INTO rt_platos (decripcion) VALUES (:nombre)";
+    $sql = "INSERT INTO rt_platos (descripcion) VALUES (:nombre)";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("nombre", $plato->nombre);
+        $stmt->execute();
+        $emp->id = $db->lastInsertId();
+        $db = null;
+        echo json_encode($emp);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+/* añade un ingrediente */
+function addIngrediente($request) {
+    $ingrediente = json_decode($request->getBody());
+    $sql = "INSERT INTO rt_ingredientes (descripcion) VALUES (:nombre)";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("nombre", $ingrediente->nombre);
+        $stmt->execute();
+        $emp->id = $db->lastInsertId();
+        $db = null;
+        echo json_encode($emp);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+/* añade un alergeno */
+function addAlergeno($request) {
+    $alergeno = json_decode($request->getBody());
+    $sql = "INSERT INTO rt_alergenos (descripcion) VALUES (:nombre)";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("nombre", $alergeno->nombre);
         $stmt->execute();
         $emp->id = $db->lastInsertId();
         $db = null;
@@ -96,10 +129,31 @@ function getAlergenosPlato($request) {
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam("id", $id);
+        $stmt->bindParam("idPlato", $id);
         $stmt->execute();
+        $wines = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($emp);
+
+        return json_encode($wines);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+/**/
+function getPlatosAlergeno($request) {
+    $emp = json_decode($request->getBody());
+	  $id = $request->getAttribute('id');
+    $sql = "select p.id,p.descripcion from rt_platos p inner join rt_ingredientes_plato ipl on ipl.id_plato=p.id inner join rt_alergenos_ingrediente ain on ain.id_ingrediente=ipl.id_ingrediente where ain.id_alergeno=:idAlergeno";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("idAlergeno", $id);
+        $stmt->execute();
+        $wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+
+        return json_encode($wines);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
