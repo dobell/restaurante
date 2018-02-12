@@ -63,10 +63,12 @@ CREATE TABLE `rt_alergenos_ingrediente` (
 
 -- datos de ejemplo
 insert into rt_platos(descripcion) values ('Pan');
-insert into rt_ingredientes(descripcion) values ('Harina'),('Sal'),('Levadura'),('Agua');
-insert into rt_ingredientes_plato(id_plato,id_ingrediente) values (1,2),(1,3),(1,4),(1,5);
+insert into rt_ingredientes(descripcion) values ('Harina'),('Sal'),('Levadura'),('Agua'),('Lecitina de soja');
+insert into rt_ingredientes_plato(id_plato,id_ingrediente) values (1,2),(1,3),(1,4),(1,5), (1,6);
 insert into rt_alergenos(descripcion) values('Gluten');
+insert into rt_alergenos(descripcion) values('Soja');
 insert into rt_alergenos_ingrediente(id_ingrediente, id_alergeno) values(2,3);
+insert into rt_alergenos_ingrediente(id_ingrediente, id_alergeno) values(6,4);
 
 
 
