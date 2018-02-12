@@ -1,0 +1,16 @@
+#crear un plato
+curl -X POST -H 'Content-Type: application/json' -i 'http://localhost:8080/index.php/api/v1/createPlato' --data '{"nombre":"donut"}'
+
+# crear un ingrediente
+curl -X POST -H 'Content-Type: application/json' -i 'http://localhost:8080/index.php/api/v1/createIngrediente' --data '{"nombre":"Azucar"}'
+
+# crear un alergeno
+curl -X POST -H 'Content-Type: application/json' -i 'http://localhost:8080/index.php/api/v1/createIngrediente' --data '{"nombre":"Soja"}'
+
+# alergenos del plato que se indica a través de su id, en este caso el plato 1
+curl -X GET -H 'Content-Type: application/json' -i 'http://localhost:8080/index.php/api/v1/plato/1/alergenos'
+
+# platos en los que está un alergeno con un id indicado, en este caso el 3, gluten
+curl -X GET -H 'Content-Type: application/json' -i 'http://localhost:8080/index.php/api/v1/platos/alergeno/4'
+
+
