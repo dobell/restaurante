@@ -1,27 +1,12 @@
-# Slim Framework 3 Skeleton Application
+# Aplicación alérgenos de platos en restaurante
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+Aplicación de ejemplo de API Rest para controlar los alérgenos de platos de un restaurante.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+Debido a una nueva legislación, los restaurantes necesitan tener información disponible acerca de los alérgenos que tiene cada plato que sirven. Un plato tiene varios ingredientes, y un ingrediente puede tener varios alérgenos.
 
-## Install the Application
+Un restaurante ha contratado una aplicación movil que gestione para sus camareros cualquier duda de los clientes acerca de esta materia.
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+ Tendrá:
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
-
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
-
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
-
-To run the application in development, you can run these commands 
-
-	cd [my-app-name]
-	php composer.phar start
-
-Run this command in the application directory to run the test suite
-
-	php composer.phar test
-
-That's it! Now go build something cool.
+- Una base de datos que almacene los platos y sus alérgenos.
+- Una API Rest que devuelva los alérgenos de un plato dado, o los platos en los que aparece un alérgeno concreto, y permita añadir ingredientes, platos y alérgenos.
